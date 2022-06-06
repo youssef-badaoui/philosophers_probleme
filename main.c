@@ -20,7 +20,7 @@ typedef struct s_id
 	int index;
 	int age;
 	int done;
-	t_data data;
+	t_data *data;
 	pthread_mutex_t *forks;
 } t_id;
 
@@ -105,8 +105,10 @@ void	ft_state(int c, int i, int t, t_id *id)
 {
 	struct timeval time;
 	long long e;
+	static int x;
 
-	pthread_mutex_lock(&id->data.aff);
+	
+	pthread_mutex_lock(&id->data->aff);
 	gettimeofday(&time, NULL);
 	e = t - time.tv_sec * 1000;
 	ft_putnbr(e);
@@ -120,8 +122,11 @@ void	ft_state(int c, int i, int t, t_id *id)
 	else if(c == 't')
 		ft_putstr(" is thinking\n");
 	else if(c == 'd')
+	{
 		ft_putstr(" died\n");
-	pthread_mutex_unlock(&id->data.aff);
+		return ;
+	}
+	pthread_mutex_unlock(&id->data->aff);
 }
 
 int ft_death(t_id *id)
@@ -133,18 +138,18 @@ int ft_death(t_id *id)
 	t = 0;
 	while(1)
 	{
-		if(ft_time() - id[i].age > id->data.td)
+		if(ft_time() - id[i].age > id->data->td)
 			break;
-		if(id[i].done == id->data.t)
+		if(id[i].done == id->data->t)
 			t++;
-		if(t == id->data.np)
+		if(t == id->data->np)
 			break;
 		i++;
-		if(i == id->data.np)
+		if(i == id->data->np)
 			i = 0;
 	}
-	ft_state('d', i, id->data.start, id);
-	return 1;
+	ft_state('d', i, id->data->start, id);
+	return 0;
 }
 
 void *srv(void *parm)
@@ -156,24 +161,26 @@ void *srv(void *parm)
 
 
 	id = parm;
-	i = id[i].index;
-	t = id->data.start;
-	while(1)
-	{
-		pthread_mutex_lock(&id->forks[i]);
-		ft_state('f', i, t, id);
-		pthread_mutex_lock(&id->forks[(i + 1) % id->data.np]);
-		ft_state('f', i, t, id);
-		ft_state('e', i, t, id);
-		id->age = ft_time();
-		id->done++;
-		usleep(id->data.te * 1000);
-		pthread_mutex_unlock(&id->forks[i]);
-		pthread_mutex_unlock(&id->forks[(i + 1) % id->data.np]);
-		ft_state('s', i, t, id);
-		usleep(id->data.ts * 1000);
-		ft_state('t', i, t, id);
-	}
+	i = id->index;
+	printf("id = %d\n",i);
+	printf("np = %d\n",id->data->np);
+	t = id->data->start;
+	// while(1)
+	// {
+	// 	pthread_mutex_lock(&id->forks[i]);
+	// 	ft_state('f', i, t, id);
+	// 	pthread_mutex_lock(&id->forks[(i + 1) % id->data.np]);
+	// 	ft_state('f', i, t, id);
+	// 	ft_state('e', i, t, id);
+	// 	id->age = ft_time();
+	// 	id->done++;
+	// 	usleep(id->data.te * 1000);
+	// 	pthread_mutex_unlock(&id->forks[i]);
+	// 	pthread_mutex_unlock(&id->forks[(i + 1) % id->data.np]);
+	// 	ft_state('s', i, t, id);
+	// 	usleep(id->data.ts * 1000);
+	// 	ft_state('t', i, t, id);
+	// }
 	return 0;
 }
 
@@ -184,37 +191,39 @@ int main(int ac, char **av)
 	t_id id[ft_atoi(av[1])];
 	pthread_t philo[ft_atoi(av[1])];
 	pthread_mutex_t fork[ft_atoi(av[1])];
+	t_data data;
 
 	id->forks = fork;
 	if(ac > 5)
 	{
-		id->data.np = ft_atoi(av[1]);
-		id->data.td = ft_atoi(av[2]);
-		id->data.te = ft_atoi(av[3]);
-		id->data.ts = ft_atoi(av[4]);
+		data.np = ft_atoi(av[1]);
+		data.td = ft_atoi(av[2]);
+		data.te = ft_atoi(av[3]);
+		data.ts = ft_atoi(av[4]);
 	}
 	else return (0);
 	if(ac == 6)
-		id->data.t = ft_atoi(av[5]);
+		data.t = ft_atoi(av[5]);
 	else 
-		id->data.t = 0;
-
+		data.t = 0;
 	i = 0;
-	pthread_mutex_init(&id->data.aff, NULL);
-	while(i < id->data.np)
+	pthread_mutex_init(&data.aff, NULL);
+	while(i < data.np)
 		pthread_mutex_init(&id->forks[i++], NULL);
 	i = 0;
-	while (i < id->data.np)
+	while (i < data.np)
 	{
-		id->index = i + 1;
+		id[i].data = &data;
+		id[i].index = i + 1;
+		// printf("id = %d\n", id->index);
 		id->age = ft_time();
 		id->done = 0;
-		id->data.start = ft_time();
-		pthread_create(&philo[i], NULL, srv, &id);
+		id->data->start = ft_time();
+		pthread_create(&philo[i], NULL, srv, &id[i]);
 		pthread_detach(philo[i]);
 		i++;
 	}
-	printf("ok!\n");
-	ft_death(id);
+
+	while(1);
 	return 0;
 }
