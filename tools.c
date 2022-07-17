@@ -12,6 +12,26 @@
 
 #include "philosophers.h"
 
+int	ft_isd(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while(av[i])
+	{
+		j = 0;
+		while(av[i][j])
+		{
+			if(av[i][j] > '9' || av[i][j] < '0')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 long long	ft_time(void)
 {
 	struct timeval	time;
@@ -63,12 +83,14 @@ void	ft_usleep(long long time)
 	while (now - start < time)
 	{
 		now = ft_time();
-		usleep (100);
+		usleep (100);		
 	}
 }
 
-void	ft_check(int ac, char **av, t_data *data)
+int	ft_check(int ac, char **av, t_data *data)
 {
+	if(!ft_isd(av))
+		return (0);
 	if (ac >= 5)
 	{
 		data->np = ft_atoi(av[1]);
@@ -77,9 +99,10 @@ void	ft_check(int ac, char **av, t_data *data)
 		data->ts = ft_atoi(av[4]);
 	}
 	else 
-		return ;
+		return (0);
 	if (ac == 6)
 		data->t = ft_atoi(av[5]);
 	else
 		data->t = -1;
+	return (1);
 }

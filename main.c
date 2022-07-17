@@ -105,7 +105,8 @@ int	main(int ac, char **av)
 	id = malloc(sizeof(t_id) * ft_atoi(av[1]));
 	philo = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
 	fork = malloc(sizeof(pthread_mutex_t) * ft_atoi(av[1]));
-	ft_check(ac, av, &data);
+	if(!ft_check(ac, av, &data))
+		return (0);
 	pthread_mutex_init(&data.aff, NULL);
 	i = 0;
 	while (i < data.np)

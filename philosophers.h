@@ -34,5 +34,5 @@ void	ft_usleep(long long time);
 void	ft_state(int c, t_id *id);
 int		ft_death(t_id *id);
 void	*srv(void *parm);
-void	ft_check(int ac, char **av, t_data *data);
+int		ft_check(int ac, char **av, t_data *data);
 #endif
