@@ -57,7 +57,7 @@ int	ft_death(t_id *id)
 			id[i].done = 0;
 		}
 		if(p == id->data->np)
-			break ;
+			break ;	
 		i++;
 		if(i == id->data->np)
 			i = 0;
