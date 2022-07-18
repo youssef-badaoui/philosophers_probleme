@@ -15,6 +15,7 @@ typedef struct s_data {
 	int ts;
 	int td;
 	int t;
+	int *pids;
 } t_data;
 
 typedef struct s_id
