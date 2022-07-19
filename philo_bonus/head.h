@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/time.h>
+#include <sys/types.h>
+#include <signal.h>
 #include <time.h>
 #include <stdlib.h>
 #include <semaphore.h>
@@ -16,6 +18,7 @@ typedef struct s_data {
 	int ts;
 	int td;
 	int t;
+	long long start;
 	pid_t *pids;
 	sem_t *forks;
 	sem_t *f_meal;
