@@ -6,7 +6,7 @@
 /*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:32:14 by ybadaoui          #+#    #+#             */
-/*   Updated: 2022/06/10 15:41:43 by ybadaoui         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:33:07 by ybadaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	ft_isd(char **av)
 	int	j;
 
 	i = 1;
-	while(av[i])
+	while (av[i])
 	{
 		j = 0;
-		while(av[i][j])
+		while (av[i][j])
 		{
-			if(av[i][j] > '9' || av[i][j] < '0')
+			if (av[i][j] > '9' || av[i][j] < '0')
 				return (0);
 			j++;
 		}
@@ -83,13 +83,13 @@ void	ft_usleep(long long time)
 	while (now - start < time)
 	{
 		now = ft_time();
-		usleep (100);		
+		usleep (100);
 	}
 }
 
 int	ft_check(int ac, char **av, t_data *data)
 {
-	if(!ft_isd(av))
+	if (!ft_isd(av))
 		return (0);
 	if (ac >= 5)
 	{
@@ -98,7 +98,7 @@ int	ft_check(int ac, char **av, t_data *data)
 		data->te = ft_atoi(av[3]);
 		data->ts = ft_atoi(av[4]);
 	}
-	else 
+	else
 		return (0);
 	if (ac == 6)
 		data->t = ft_atoi(av[5]);

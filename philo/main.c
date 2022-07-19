@@ -6,7 +6,7 @@
 /*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:19:16 by ybadaoui          #+#    #+#             */
-/*   Updated: 2022/06/10 16:35:19 by ybadaoui         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:31:46 by ybadaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ void	ft_state(int c, t_id *id)
 
 int	ft_death(t_id *id)
 {
-	int i;
-	int p;
-	
+	int	i;
+	int	p;
 
 	i = 0;
 	p = 0;
-	if(id->data->t == 0)
+	if (id->data->t == 0)
 		return (0);
 	while (1)
 	{
@@ -51,15 +50,15 @@ int	ft_death(t_id *id)
 			ft_state('d', &id[i]);
 			break ;
 		}
-		if(id[i].done == id[i].data->t)
+		if (id[i].done == id[i].data->t)
 		{
 			p++;
 			id[i].done = 0;
 		}
-		if(p == id->data->np)
-			break ;	
+		if (p == id->data->np)
+			break ;
 		i++;
-		if(i == id->data->np)
+		if (i == id->data->np)
 			i = 0;
 		usleep (500);
 	}
@@ -105,7 +104,7 @@ int	main(int ac, char **av)
 	id = malloc(sizeof(t_id) * ft_atoi(av[1]));
 	philo = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
 	fork = malloc(sizeof(pthread_mutex_t) * ft_atoi(av[1]));
-	if(!ft_check(ac, av, &data))
+	if (!ft_check(ac, av, &data))
 		return (0);
 	pthread_mutex_init(&data.aff, NULL);
 	i = 0;
@@ -125,6 +124,5 @@ int	main(int ac, char **av)
 		i++;
 	}
 	ft_death(id);
-
 	return (0);
 }
