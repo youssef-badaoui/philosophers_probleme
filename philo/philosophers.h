@@ -1,12 +1,25 @@
-#ifndef PHILOSOPHERS_H
-#define PHILOSOPHERS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/19 16:22:08 by ybadaoui          #+#    #+#             */
+/*   Updated: 2022/07/19 16:22:09 by ybadaoui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <time.h>
-#include <stdlib.h>
+
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
+
+# include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <time.h>
+# include <stdlib.h>
 
 
 typedef struct s_data {

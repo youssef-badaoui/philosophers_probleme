@@ -12,10 +12,10 @@ PTF = -lpthread
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) $(FLAGS) $(PTF) -o $(NAME)
+	$(CC) $(OBJ) $(FLAGS)  -o $(NAME)
 
 %.o : %.c
-	$(CC) $(FLAGS) $(PTF) -c $<
+	$(CC) $(FLAGS)  -c $<
 
 clean :
 	rm -rf $(OBJ)
