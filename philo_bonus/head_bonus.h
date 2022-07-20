@@ -1,6 +1,17 @@
-#ifndef HEAD_H
-# define HEAD_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   head_bonus.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/20 12:48:27 by ybadaoui          #+#    #+#             */
+/*   Updated: 2022/07/20 12:49:17 by ybadaoui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef HEAD_BONUS_H
+# define HEAD_BONUS_H
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -10,7 +21,6 @@
 # include <time.h>
 # include <stdlib.h>
 # include <semaphore.h>
-
 
 typedef struct s_data {
 	int			np;
@@ -33,7 +43,7 @@ typedef struct s_id
 }	t_id;
 
 void		ft_manage(t_data *data);
-long long	ft_time();
+long long	ft_time(void);
 int			ft_atoi(const char *str);
 void		ft_usleep(long long time);
 void		ft_state(int c, t_id *id);

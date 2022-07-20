@@ -6,7 +6,7 @@
 /*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:19:16 by ybadaoui          #+#    #+#             */
-/*   Updated: 2022/07/19 18:53:22 by ybadaoui         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:55:25 by ybadaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,8 @@ int	main(int ac, char **av)
 	i = 0;
 	ft_launch(id, &data, fork, philo);
 	ft_death(id);
+	free(id);
+	free(philo);
+	free(fork);
 	return (0);
 }
