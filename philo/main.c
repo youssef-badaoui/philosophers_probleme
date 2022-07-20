@@ -6,7 +6,7 @@
 /*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:19:16 by ybadaoui          #+#    #+#             */
-/*   Updated: 2022/07/19 16:31:46 by ybadaoui         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:53:22 by ybadaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	ft_death(t_id *id)
 
 	i = 0;
 	p = 0;
-	if (id->data->t == 0)
-		return (0);
 	while (1)
 	{
 		if (ft_time() - id[i].age >= id->data->td)
@@ -93,6 +91,26 @@ void	*srv(void *parm)
 	return (0);
 }
 
+void	ft_launch(t_id *id, t_data *data,
+	pthread_mutex_t	*fork, pthread_t	*philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->np)
+	{
+		id[i].data = data;
+		id[i].forks = fork;
+		id[i].index = i;
+		id[i].done = 0;
+		id[i].age = ft_time();
+		id->data->start = ft_time();
+		pthread_create(&philo[i], NULL, srv, &id[i]);
+		pthread_detach(philo[i]);
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	int					i;
@@ -106,23 +124,14 @@ int	main(int ac, char **av)
 	fork = malloc(sizeof(pthread_mutex_t) * ft_atoi(av[1]));
 	if (!ft_check(ac, av, &data))
 		return (0);
+	if (data.t == 0)
+		return (0);
 	pthread_mutex_init(&data.aff, NULL);
 	i = 0;
 	while (i < data.np)
 		pthread_mutex_init(&fork[i++], NULL);
 	i = 0;
-	while (i < data.np)
-	{
-		id[i].data = &data;
-		id[i].forks = fork;
-		id[i].index = i;
-		id[i].done = 0;
-		id[i].age = ft_time();
-		id->data->start = ft_time();
-		pthread_create(&philo[i], NULL, srv, &id[i]);
-		pthread_detach(philo[i]);
-		i++;
-	}
+	ft_launch(id, &data, fork, philo);
 	ft_death(id);
 	return (0);
 }

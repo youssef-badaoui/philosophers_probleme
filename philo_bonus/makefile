@@ -1,6 +1,6 @@
-NAME = philo
+NAME = philo_bonus
 
-SRC = main.c tools.c
+SRC = extra_bonus.c main_bonus.c tools_bonus.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -17,8 +17,7 @@ $(NAME) : $(OBJ)
 %.o : %.c
 	$(CC) $(FLAGS)  -c $<
 
-bonus : 
-	@echo "bonus has his own MAKEFILE in ../philo/"
+bonus : $(NAME)
 
 clean :
 	rm -rf $(OBJ)

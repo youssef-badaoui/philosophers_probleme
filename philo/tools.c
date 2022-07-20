@@ -6,7 +6,7 @@
 /*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:32:14 by ybadaoui          #+#    #+#             */
-/*   Updated: 2022/07/19 16:33:07 by ybadaoui         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:43:41 by ybadaoui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	while (str[i] > 47 && str[i] < 58)
-	{
-		nb = (nb * 10) + (str[i] - 48);
-		i++;
-	}
+		nb = (nb * 10) + (str[i++] - 48);
 	return (nb * j);
 }
 

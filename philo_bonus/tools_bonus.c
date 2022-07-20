@@ -1,24 +1,16 @@
-#include "head.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybadaoui <ybadaoui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/19 16:21:51 by ybadaoui          #+#    #+#             */
+/*   Updated: 2022/07/19 19:49:42 by ybadaoui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	ft_state(int c, t_id *id)
-{
-	long long	e;
-
-	e = ft_time() - id->data->start;
-	if (c == 'e')
-		printf("%lld %d is eating\n", e, id->index + 1);
-	else if (c == 'f')
-		printf("%lld %d has taken a fork\n", e, id->index + 1);
-	else if (c == 's')
-		printf("%lld %d is sleeping\n", e, id->index + 1);
-	else if (c == 't')
-		printf("%lld %d is thinking\n", e, id->index + 1);
-	else if (c == 'd')
-	{
-		printf("%lld %d died\n", e, id->index + 1);
-		return ;
-	}
-}
+#include "head_bonus.h"
 
 int	ft_isd(char **av)
 {
@@ -88,13 +80,13 @@ void	ft_usleep(long long time)
 	while (now - start < time)
 	{
 		now = ft_time();
-		usleep (100);		
+		usleep (100);
 	}
 }
 
 int	ft_check(int ac, char **av, t_data *data)
 {
-	if(!ft_isd(av))
+	if (!ft_isd(av))
 		return (0);
 	if (ac >= 5)
 	{
@@ -103,7 +95,7 @@ int	ft_check(int ac, char **av, t_data *data)
 		data->te = ft_atoi(av[3]);
 		data->ts = ft_atoi(av[4]);
 	}
-	else 
+	else
 		return (0);
 	if (ac == 6)
 		data->t = ft_atoi(av[5]);
